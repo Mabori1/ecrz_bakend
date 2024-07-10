@@ -36,16 +36,19 @@ model Profile {
 
 model Apartment {
   id            Int    @id @default(autoincrement())
+  name          String
   type          String
   floor         String
   kitchenSquare Int
   bedroomSquare Int
+  totalSquare   Int
   address       String
   pricePerMeter Int
 }
 
 model House {
   id            Int    @id @default(autoincrement())
+  name          String
   type          String
   kitchenArea   Int
   square        Int
