@@ -3,7 +3,7 @@ import { fakerRU as faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
-const DATA_COUNT = 500;
+const DATA_COUNT = 600;
 const dataMock = [];
 
 const pgts = [
