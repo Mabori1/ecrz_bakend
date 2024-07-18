@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ssh command
-      - uses: D3rHase/ssh-command-action@v0.2.2
+        uses: D3rHase/ssh-command-action@v0.2.2
         with:
-          host: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USERNAME }}
-          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          host_fingerprint: ${{ secrets.SSH_FINGERPRINT }}
-          command: sourse ~./nvm/nvm.sh; echo "hello"
+          host: ${{secrets.SSH_HOST}} # Remote server address / ip - required
+          user: ${{secrets.SSH_USERNAME}} # Remote server user - required
+          private_key: ${{secrets.SSH_PRIVATE_KEY}} # Private ssh key registered on the remote server - required
+          host_fingerprint: ${{secrets.SSH_FINGERPRINT}} # Public ssh key fingerprint, viewable via ssh-keyscan -H $HOST -p $PORT - optional
+          command: sourse ~/.nvm/nvm.sh; ~/deploy.sh
