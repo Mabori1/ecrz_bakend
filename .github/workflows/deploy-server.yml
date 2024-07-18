@@ -16,4 +16,4 @@ jobs:
           user: ${{secrets.SSH_USERNAME}} # Remote server user - required
           private_key: ${{secrets.SSH_PRIVATE_KEY}} # Private ssh key registered on the remote server - required
           host_fingerprint: ${{secrets.SSH_FINGERPRINT}} # Public ssh key fingerprint, viewable via ssh-keyscan -H $HOST -p $PORT - optional
-          command: sourse ~/.nvm/nvm.sh; ~/deploy.sh
+          command: source ~/.nvm/nvm.sh; ~/deploy.sh
