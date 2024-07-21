@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Apartment, House } from '@prisma/client';
 import { PrismaService } from './prisma.service';
+import { replaceRooms } from './lib/utils';
 
 @Injectable()
 export class AppService {
@@ -16,21 +17,35 @@ export class AppService {
     return this.prisma.apartment.findMany();
   }
 
-  async apartmentsFiltered(params: {
-    skip?: number;
-    take?: number;
-    type?: string;
-    cursor?: Prisma.ApartmentWhereUniqueInput;
-    where?: Prisma.ApartmentWhereInput;
-    orderBy?: Prisma.ApartmentOrderByWithRelationInput;
+  async apartmentsFiltered({
+    take,
+    skip,
+    priceMin,
+    priceMax,
+    squareMin,
+    squareMax,
+    rooms,
+    sortBy,
+    sortDirection,
   }): Promise<Apartment[]> {
-    const { skip, take, cursor, where, orderBy } = params;
+    const roomsArray = replaceRooms(rooms);
+    const and = {
+      AND: [
+        { priceTotal: { gte: priceMin, lte: priceMax } },
+        { totalSquare: { gte: squareMin, lte: squareMax } },
+        { type: { in: roomsArray } },
+      ],
+    };
+
     return this.prisma.apartment.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
+      where: {
+        ...and,
+      },
+      take: Number(take) || undefined,
+      skip: Number(skip) || undefined,
+      orderBy: {
+        [`${sortBy}`]: sortDirection,
+      },
     });
   }
 
