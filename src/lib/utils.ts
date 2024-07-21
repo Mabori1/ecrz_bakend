@@ -48,13 +48,14 @@ export class QueryApartments {
   @IsOptional()
   public sortDirection: 'desc' | 'asc' | '' = 'desc';
 
-  @IsIn(['price', 'square', ''])
+  @IsIn(['priceTotal', 'totalSquare', ''])
   @IsOptional()
-  public sortBy: 'price' | 'square' | '' = 'price';
+  public sortBy: 'priceTotal' | 'totalSquare' | '';
+
   @IsEnum(RoomsTypes, {
     each: true,
   })
-  @Transform(({ value }) => value.split(',').map((item: string) => item))
+  @Transform(({ value }) => value.split(',').map((item: string) => item.toLowerCase()))
   @IsOptional()
   public rooms: RoomsTypes[];
 
@@ -64,6 +65,7 @@ export class QueryApartments {
 }
 
 export const replaceRooms = (rooms: string[]) => {
+  if (rooms.length === 0) return [];
   const tempRooms = [];
 
   for (const room of rooms) {
@@ -71,29 +73,3 @@ export const replaceRooms = (rooms: string[]) => {
   }
   return tempRooms;
 };
-
-// export const createQueryString = (queryArgs?: QueryApartments) => {
-//   if (!queryArgs) {
-//     return '';
-//   }
-//
-//   const queryParams = [
-//     `${queryArgs.take ? `take=${queryArgs.take}` : ''}`,
-//     `${queryArgs.skip ? `skip=${queryArgs.skip}` : ''}`,
-//     `${queryArgs.priceMin ? `priceMin=${queryArgs.priceMin}` : ''}`,
-//     `${queryArgs.priceMax ? `priceMax=${queryArgs.priceMax}` : ''}`,
-//     `${queryArgs.squareMin ? `squareMin=${queryArgs.squareMin}` : ''}`,
-//     `${queryArgs.squareMax ? `squareMax=${queryArgs.squareMax}` : ''}`,
-//     `${queryArgs.sortBy ? `sortBy=${queryArgs.sortBy}` : ''}`,
-//     `${queryArgs.sortDirection ? `sortDirection=${queryArgs.sortDirection}` : ''}`,
-//     `${queryArgs.rooms ? `rooms=${queryArgs.rooms}` : ''}`,
-//   ];
-//
-//   const isNotEmptyString = queryParams.filter((param) => param !== '').join('') !== '';
-//
-//   const queryString = isNotEmptyString
-//     ? `?${queryParams.filter((param) => param !== '').join('&')}`
-//     : '';
-//
-//   return queryString;
-// };

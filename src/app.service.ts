@@ -28,14 +28,17 @@ export class AppService {
     sortBy,
     sortDirection,
   }): Promise<Apartment[]> {
-    const roomsArray = replaceRooms(rooms);
+    const roomsArray = rooms ? replaceRooms(rooms) : [];
+    const roomsCondition = roomsArray.length > 0 ? { type: { in: roomsArray } } : {};
+
     const and = {
       AND: [
         { priceTotal: { gte: priceMin, lte: priceMax } },
         { totalSquare: { gte: squareMin, lte: squareMax } },
-        { type: { in: roomsArray } },
-      ],
+        roomsCondition,
+      ].filter((condition) => Object.keys(condition).length > 0),
     };
+    const orderByValue = sortBy ? { [sortBy]: sortDirection } : undefined;
 
     return this.prisma.apartment.findMany({
       where: {
@@ -43,9 +46,7 @@ export class AppService {
       },
       take: Number(take) || undefined,
       skip: Number(skip) || undefined,
-      orderBy: {
-        [`${sortBy}`]: sortDirection,
-      },
+      orderBy: orderByValue,
     });
   }
 

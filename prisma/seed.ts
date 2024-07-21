@@ -153,15 +153,15 @@ for (let i = 0; i < DATA_COUNT; i++) {
       name = `1-к. квартира, ${totalSquare}`;
       break;
     case 'TWO_ROOM':
-      totalSquare = kitchenSquare + bedroomSquare + 23;
+      totalSquare = kitchenSquare + bedroomSquare + 28;
       name = `2-к. квартира, ${totalSquare}`;
       break;
     case 'TREE_ROOM':
-      totalSquare = kitchenSquare + bedroomSquare + 38;
+      totalSquare = kitchenSquare + bedroomSquare + 48;
       name = `3-к. квартира, ${totalSquare}`;
       break;
     case 'FOUR_ROOM':
-      totalSquare = kitchenSquare + bedroomSquare + 50;
+      totalSquare = kitchenSquare + bedroomSquare + 70;
       name = `4-к. квартира, ${totalSquare}`;
       break;
     case 'STUDIYA':

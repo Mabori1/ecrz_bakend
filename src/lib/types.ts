@@ -11,19 +11,19 @@ export class Query {
 }
 
 export enum RoomsTypes {
-  STUDIYA = 'Студия',
+  STUDIYA = 'студия',
   ONE_ROOM = '1',
   TWO_ROOM = '2',
   THREE_ROOM = '3',
-  FOUR_ROOM = '4+',
+  FOUR_ROOM = '4',
 }
 
 export const roomsTypes = [
-  { value: 'STUDIYA', type: 'Студия' },
+  { value: 'STUDIYA', type: 'студия' },
   { value: 'ONE_ROOM', type: '1' },
   { value: 'TWO_ROOM', type: '2' },
   { value: 'THREE_ROOM', type: '3' },
-  { value: 'FOUR_ROOM', type: '4+' },
+  { value: 'FOUR_ROOM', type: '4' },
 ];
 
 // skip?: number;
