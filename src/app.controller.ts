@@ -34,17 +34,17 @@ export class AppController {
   }
 
   @Get('houses/filters')
-  async getFilteredHouses(@Query() query: QueryParams): Promise<ApartmentModel[]> {
-    const apartments = await this.appService.housesFiltered(query).catch((err) => {
+  async getFilteredHouses(@Query() query: QueryParams): Promise<HouseModel[]> {
+    const houses = await this.appService.housesFiltered(query).catch((err) => {
       this.logger.error(err);
       throw new NotFoundException('Houses not found');
     });
 
-    if (!apartments) {
+    if (!houses) {
       throw new NotFoundException('Houses not found');
     }
 
-    return apartments;
+    return houses;
   }
 
   @Get('houses')
