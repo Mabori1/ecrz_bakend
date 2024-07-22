@@ -1,7 +1,7 @@
 import { Controller, Get, Logger, NotFoundException, Param, Query } from '@nestjs/common';
 import { Apartment as ApartmentModel, House as HouseModel } from '@prisma/client';
 import { AppService } from './app.service';
-import { QueryApartments } from './lib/utils';
+import { QueryParams } from './lib/utils';
 
 @Controller()
 export class AppController {
@@ -9,9 +9,8 @@ export class AppController {
 
   constructor(private readonly appService: AppService) {}
 
-  // apartments/filters?searchString={searchString}&take={take}&skip={skip}&sort={sort}&orderBy={orderBy}
   @Get('apartments/filters')
-  async getFilteredApartments(@Query() query: QueryApartments): Promise<ApartmentModel[]> {
+  async getFilteredApartments(@Query() query: QueryParams): Promise<ApartmentModel[]> {
     const apartments = await this.appService.apartmentsFiltered(query).catch((err) => {
       this.logger.error(err);
       throw new NotFoundException('Apartments not found');
@@ -35,32 +34,17 @@ export class AppController {
   }
 
   @Get('houses/filters')
-  async getFilteredHouses(
-    @Query('take') take?: number,
-    @Query('skip') skip?: number,
-    @Query('searchString') searchString?: 'RESIDENTIAL' | 'GARDEN',
-    @Query('sort') sort: 'pricePerMeter' | 'square' = 'pricePerMeter',
-    @Query('orderBy') orderBy: 'asc' | 'desc' = 'asc',
-  ): Promise<HouseModel[]> {
-    const or = searchString
-      ? {
-          OR: [{ type: { contains: searchString } }],
-        }
-      : {};
-    const orderByMap = sort
-      ? {
-          [`${sort}`]: orderBy,
-        }
-      : {};
-
-    return this.appService.housesFiltered({
-      where: {
-        ...or,
-      },
-      take: Number(take) || undefined,
-      skip: Number(skip) || undefined,
-      orderBy: orderByMap,
+  async getFilteredHouses(@Query() query: QueryParams): Promise<ApartmentModel[]> {
+    const apartments = await this.appService.housesFiltered(query).catch((err) => {
+      this.logger.error(err);
+      throw new NotFoundException('Houses not found');
     });
+
+    if (!apartments) {
+      throw new NotFoundException('Houses not found');
+    }
+
+    return apartments;
   }
 
   @Get('houses')

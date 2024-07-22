@@ -1,9 +1,9 @@
 import { Transform } from 'class-transformer';
 import { IsEnum, IsIn, IsNumber, IsOptional, IsPositive, Min } from 'class-validator';
-import { roomsTypes, RoomsTypes } from './types';
+import { housesTypes, HousesTypes, roomsTypes, RoomsTypes } from './types';
 import { Prisma } from '@prisma/client';
 
-export class QueryApartments {
+export class QueryParams {
   @IsNumber()
   @IsPositive()
   @Transform(({ value }) => +value)
@@ -48,9 +48,9 @@ export class QueryApartments {
   @IsOptional()
   public sortDirection: 'desc' | 'asc' | '' = 'desc';
 
-  @IsIn(['priceTotal', 'totalSquare', ''])
+  @IsIn(['priceTotal', 'totalSquare', 'square', ''])
   @IsOptional()
-  public sortBy: 'priceTotal' | 'totalSquare' | '';
+  public sortBy: 'priceTotal' | 'totalSquare' | 'square' | '';
 
   @IsEnum(RoomsTypes, {
     each: true,
@@ -59,17 +59,34 @@ export class QueryApartments {
   @IsOptional()
   public rooms: RoomsTypes[];
 
+  @IsEnum(HousesTypes, {
+    each: true,
+  })
+  @Transform(({ value }) => value.split(',').map((item: string) => item.toLowerCase()))
+  @IsOptional()
+  public types: HousesTypes[];
+
   cursor?: Prisma.ApartmentWhereUniqueInput;
   where?: Prisma.ApartmentWhereInput;
   orderBy?: Prisma.ApartmentOrderByWithRelationInput;
 }
 
-export const replaceRooms = (rooms: string[]) => {
-  if (rooms.length === 0) return [];
+export const replaceApartments = (arrApartments: string[]) => {
+  if (arrApartments.length === 0) return [];
   const tempRooms = [];
 
-  for (const room of rooms) {
+  for (const room of arrApartments) {
     roomsTypes.forEach((item) => (item.type === room ? tempRooms.push(item.value) : null));
   }
   return tempRooms;
+};
+
+export const replaceHouses = (arrHouses: string[]) => {
+  if (arrHouses.length === 0) return [];
+  const tempHouses = [];
+
+  for (const house of arrHouses) {
+    housesTypes.forEach((item) => (item.type === house ? tempHouses.push(item.value) : null));
+  }
+  return tempHouses;
 };

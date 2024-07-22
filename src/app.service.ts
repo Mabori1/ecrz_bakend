@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Apartment, House } from '@prisma/client';
 import { PrismaService } from './prisma.service';
-import { replaceRooms } from './lib/utils';
+import { replaceApartments, replaceHouses } from './lib/utils';
 
 @Injectable()
 export class AppService {
@@ -28,7 +28,7 @@ export class AppService {
     sortBy,
     sortDirection,
   }): Promise<Apartment[]> {
-    const roomsArray = rooms ? replaceRooms(rooms) : [];
+    const roomsArray = rooms ? replaceApartments(rooms) : [];
     const roomsCondition = roomsArray.length > 0 ? { type: { in: roomsArray } } : {};
 
     const and = {
@@ -38,7 +38,10 @@ export class AppService {
         roomsCondition,
       ].filter((condition) => Object.keys(condition).length > 0),
     };
-    const orderByValue = sortBy ? { [sortBy]: sortDirection } : undefined;
+    const orderByValue =
+      (sortBy && sortBy === 'totalSquare') || sortBy === 'priceTotal'
+        ? { [sortBy]: sortDirection }
+        : undefined;
 
     return this.prisma.apartment.findMany({
       where: {
@@ -60,21 +63,39 @@ export class AppService {
     return this.prisma.house.findMany();
   }
 
-  async housesFiltered(params: {
-    skip?: number;
-    take?: number;
-    type?: string;
-    cursor?: Prisma.HouseWhereUniqueInput;
-    where?: Prisma.HouseWhereInput;
-    orderBy?: Prisma.HouseOrderByWithRelationInput;
+  async housesFiltered({
+    take,
+    skip,
+    priceMin,
+    priceMax,
+    squareMin,
+    squareMax,
+    types,
+    sortBy,
+    sortDirection,
   }): Promise<House[]> {
-    const { skip, take, cursor, where, orderBy } = params;
+    const housesArray = types ? replaceHouses(types) : [];
+    const roomsCondition = housesArray.length > 0 ? { type: { in: housesArray } } : {};
+
+    const and = {
+      AND: [
+        { priceTotal: { gte: priceMin, lte: priceMax } },
+        { square: { gte: squareMin, lte: squareMax } },
+        roomsCondition,
+      ].filter((condition) => Object.keys(condition).length > 0),
+    };
+    const orderByValue =
+      (sortBy && sortBy === 'square') || sortBy === 'priceTotal'
+        ? { [sortBy]: sortDirection }
+        : undefined;
+
     return this.prisma.house.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
+      where: {
+        ...and,
+      },
+      take: Number(take) || undefined,
+      skip: Number(skip) || undefined,
+      orderBy: orderByValue,
     });
   }
 }

@@ -136,7 +136,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
     'FOUR_ROOM',
     'STUDIYA',
   ]);
-  const typeHouse = faker.helpers.arrayElement(['RESIDENTIAL', 'GARDEN']);
+  const typeHouse = faker.helpers.arrayElement(['RESIDENTIAL', 'GARDEN', 'PARTHOUSE', 'TANHOUSE']);
   const floorMax = faker.number.int({ min: 3, max: 20 });
   const floor = `${faker.number.int({ min: 1, max: floorMax })}/${floorMax}`;
   let kitchenSquare = faker.number.int({ min: 6, max: 14 });
@@ -174,10 +174,27 @@ for (let i = 0; i < DATA_COUNT; i++) {
       break;
   }
 
-  const nameHouse =
-    typeHouse === 'RESIDENTIAL'
-      ? `Коттедж, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare + 100}`
-      : `Дача, ${faker.number.int({ min: 3, max: 10 }) / 100} га, ${totalSquare}`;
+  let nameHouse = '';
+
+  switch (typeHouse) {
+    case 'RESIDENTIAL':
+      totalSquare = kitchenSquare + bedroomSquare + 7;
+      nameHouse = `Дом, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare + 100}`;
+      break;
+    case 'GARDEN':
+      totalSquare = kitchenSquare + bedroomSquare + 28;
+      name = `Дача, ${faker.number.int({ min: 3, max: 10 }) / 100} га, ${totalSquare}`;
+      break;
+    case 'TANHOUSE':
+      nameHouse = `Танхаус, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare}`;
+      break;
+    case 'PARTHOUSE':
+      nameHouse = `Часть дома, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare}`;
+      break;
+
+    default:
+      break;
+  }
 
   const apartment: Prisma.ApartmentCreateInput = {
     type: typeApartment,
