@@ -188,7 +188,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
       break;
     case 'GARDEN':
       totalSquare = kitchenSquare + bedroomSquare + 28;
-      name = `Дача, ${faker.number.int({ min: 3, max: 10 }) / 100} га, ${totalSquare}`;
+      nameHouse = `Дача, ${faker.number.int({ min: 3, max: 10 }) / 100} га, ${totalSquare}`;
       break;
     case 'TANHOUSE':
       nameHouse = `Танхаус, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare}`;
