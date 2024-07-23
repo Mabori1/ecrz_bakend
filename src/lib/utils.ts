@@ -48,9 +48,9 @@ export class QueryParams {
   @IsOptional()
   public sortDirection: 'desc' | 'asc' | '' = 'desc';
 
-  @IsIn(['priceTotal', 'totalSquare', 'square', ''])
+  @IsIn(['priceTotal', 'totalSquare', ''])
   @IsOptional()
-  public sortBy: 'priceTotal' | 'totalSquare' | 'square' | '';
+  public sortBy: 'priceTotal' | 'totalSquare' | '';
 
   @IsEnum(RoomsTypes, {
     each: true,

@@ -1,15 +1,3 @@
-export class Query {
-  public take?: number;
-  public skip?: number;
-  public sotrDirection?: 'desc' | 'asc' = 'desc';
-  public sotr?: 'price' | 'square';
-  public priceFrom?: number;
-  public priceTo?: number;
-  public squareFrom?: number;
-  public squareTo?: number;
-  public room?: number;
-}
-
 export enum RoomsTypes {
   STUDIYA = 'студия',
   ONE_ROOM = '1',
@@ -38,16 +26,3 @@ export const housesTypes = [
   { value: 'PARTHOUSE', type: 'часть дома' },
   { value: 'GARDEN', type: 'дача' },
 ];
-
-// skip?: number;
-// take?: number;
-// priceMin?: number;
-// priceMax?: number;
-// squareMin?: number;
-// squareMax?: number;
-// rooms?: string;
-// sortBy?: string;
-// sortDirection?: string;
-// cursor?: Prisma.ApartmentWhereUniqueInput;
-// where?: Prisma.ApartmentWhereInput;
-// orderBy?: Prisma.ApartmentOrderByWithRelationInput;
