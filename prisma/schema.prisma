@@ -10,6 +10,7 @@ datasource db {
 model Apartment {
   id            Int    @id @default(autoincrement())
   name          String
+  typeBuilding  String
   type          String
   floor         String
   kitchenSquare Int
@@ -23,9 +24,10 @@ model Apartment {
 model House {
   id            Int    @id @default(autoincrement())
   name          String
+  typeBuilding  String
   type          String
-  kitchenArea   Int
-  square        Int
+  kitchenSquare Int
+  totalSquare   Int
   address       String
   pricePerMeter Int
   priceTotal    Int
