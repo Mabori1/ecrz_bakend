@@ -20,6 +20,7 @@ CREATE TABLE "House" (
     "typeBuilding" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "kitchenSquare" INTEGER NOT NULL,
+    "squareBuilding" INTEGER NOT NULL,
     "totalSquare" INTEGER NOT NULL,
     "address" TEXT NOT NULL,
     "pricePerMeter" INTEGER NOT NULL,
