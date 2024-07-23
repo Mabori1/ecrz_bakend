@@ -186,7 +186,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
   switch (typeHouse) {
     case 'RESIDENTIAL':
       square = squareHouse;
-      nameHouse = `Дом, ${squareHouse / 100} га, ИЖС, ${totalSquare + 100}`;
+      nameHouse = `Дом, ${squareHouse / 100} га, ${totalSquare + 100}`;
       break;
     case 'GARDEN':
       square = squareGarden;
@@ -194,11 +194,11 @@ for (let i = 0; i < DATA_COUNT; i++) {
       break;
     case 'TANHOUSE':
       square = squareGarden;
-      nameHouse = `Танхаус, ${squareGarden / 100} га, ИЖС, ${totalSquare}`;
+      nameHouse = `Танхаус, ${squareGarden / 100} га, ${totalSquare}`;
       break;
     case 'PARTHOUSE':
       square = squareGarden;
-      nameHouse = `Часть дома, ${squareGarden / 100} га, ИЖС, ${totalSquare}`;
+      nameHouse = `Часть дома, ${squareGarden / 100} га, ${totalSquare}`;
       break;
 
     default:
