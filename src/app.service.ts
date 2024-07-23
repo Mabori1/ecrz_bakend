@@ -80,7 +80,7 @@ export class AppService {
     const and = {
       AND: [
         { priceTotal: { gte: priceMin, lte: priceMax } },
-        { totalSquare: { gte: squareMin, lte: squareMax } },
+        { squareBuilding: { gte: squareMin, lte: squareMax } },
         housesCondition,
       ].filter((condition) => Object.keys(condition).length > 0),
     };

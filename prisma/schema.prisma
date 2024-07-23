@@ -22,13 +22,14 @@ model Apartment {
 }
 
 model House {
-  id            Int    @id @default(autoincrement())
-  name          String
-  typeBuilding  String
-  type          String
-  kitchenSquare Int
-  totalSquare   Int
-  address       String
-  pricePerMeter Int
-  priceTotal    Int
+  id             Int    @id @default(autoincrement())
+  name           String
+  typeBuilding   String
+  type           String
+  kitchenSquare  Int
+  squareBuilding Int
+  totalSquare    Int
+  address        String
+  pricePerMeter  Int
+  priceTotal     Int
 }

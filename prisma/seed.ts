@@ -182,23 +182,28 @@ for (let i = 0; i < DATA_COUNT; i++) {
 
   let nameHouse = '';
   let square = 0;
+  let squareBuilding = 0;
 
   switch (typeHouse) {
     case 'RESIDENTIAL':
       square = squareHouse;
-      nameHouse = `Дом, ${squareHouse / 100} га, ${totalSquare + 100}`;
+      squareBuilding = totalSquare + 100;
+      nameHouse = `Дом, ${squareHouse / 100} га, ${squareBuilding}`;
       break;
     case 'GARDEN':
       square = squareGarden;
-      nameHouse = `Дача, ${squareGarden / 100} га, ${totalSquare}`;
+      squareBuilding = totalSquare + 10;
+      nameHouse = `Дача, ${squareGarden / 100} га, ${squareBuilding}`;
       break;
     case 'TANHOUSE':
       square = squareGarden;
-      nameHouse = `Танхаус, ${squareGarden / 100} га, ${totalSquare}`;
+      squareBuilding = totalSquare + 100;
+      nameHouse = `Танхаус, ${squareGarden / 100} га, ${squareBuilding}`;
       break;
     case 'PARTHOUSE':
       square = squareGarden;
-      nameHouse = `Часть дома, ${squareGarden / 100} га, ${totalSquare}`;
+      squareBuilding = totalSquare + 50;
+      nameHouse = `Часть дома, ${squareGarden / 100} га, ${squareBuilding}`;
       break;
 
     default:
@@ -225,6 +230,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
     kitchenSquare: kitchenSquare + 6,
     totalSquare: square,
     address: addressHouse,
+    squareBuilding,
     pricePerMeter,
     priceTotal: pricePerMeter * square,
   };
