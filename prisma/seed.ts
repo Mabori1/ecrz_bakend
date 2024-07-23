@@ -162,7 +162,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
       totalSquare = kitchenSquare + bedroomSquare + 28;
       name = `2-к. квартира, ${totalSquare}`;
       break;
-    case 'TREE_ROOM':
+    case 'THREE_ROOM':
       totalSquare = kitchenSquare + bedroomSquare + 48;
       name = `3-к. квартира, ${totalSquare}`;
       break;
