@@ -75,17 +75,17 @@ export class AppService {
     sortDirection,
   }): Promise<House[]> {
     const housesArray = types ? replaceHouses(types) : [];
-    const roomsCondition = housesArray.length > 0 ? { type: { in: housesArray } } : {};
+    const housesCondition = housesArray.length > 0 ? { type: { in: housesArray } } : {};
 
     const and = {
       AND: [
         { priceTotal: { gte: priceMin, lte: priceMax } },
-        { square: { gte: squareMin, lte: squareMax } },
-        roomsCondition,
+        { totalSquare: { gte: squareMin, lte: squareMax } },
+        housesCondition,
       ].filter((condition) => Object.keys(condition).length > 0),
     };
     const orderByValue =
-      (sortBy && sortBy === 'square') || sortBy === 'priceTotal'
+      (sortBy && sortBy === 'totalSquare') || sortBy === 'priceTotal'
         ? { [sortBy]: sortDirection }
         : undefined;
 
