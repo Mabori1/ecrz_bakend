@@ -150,7 +150,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
   const squareGarden = faker.number.int({ min: 3, max: 10 });
   const address = `${faker.helpers.arrayElement(cityes)}, ул. ${faker.location.street()}, ${faker.number.int(100)}`;
   const addressHouse = `пгт. ${faker.helpers.arrayElement(pgts)}, ул. ${faker.location.street()}, ${faker.number.int(100)}`;
-  const pricePerMeter = faker.number.int({ min: 700, max: 1000 });
+  let pricePerMeter = faker.number.int({ min: 700, max: 1200 });
   let totalSquare = 0;
   let name = '';
   switch (typeApartment) {
@@ -193,6 +193,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
     case 'GARDEN':
       square = squareGarden;
       squareBuilding = totalSquare + 10;
+      pricePerMeter = pricePerMeter / 2;
       nameHouse = `Дача, ${squareGarden / 100} га, ${squareBuilding}`;
       break;
     case 'TANHOUSE':
@@ -232,7 +233,7 @@ for (let i = 0; i < DATA_COUNT; i++) {
     address: addressHouse,
     squareBuilding,
     pricePerMeter,
-    priceTotal: pricePerMeter * square,
+    priceTotal: pricePerMeter * squareBuilding,
   };
 
   const fullData = {
