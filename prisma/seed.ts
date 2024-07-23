@@ -146,7 +146,8 @@ for (let i = 0; i < DATA_COUNT; i++) {
   const floor = `${faker.number.int({ min: 1, max: floorMax })}/${floorMax}`;
   let kitchenSquare = faker.number.int({ min: 6, max: 14 });
   const bedroomSquare = faker.number.int({ min: 15, max: 24 });
-  const square = faker.number.int({ min: 3, max: 20 });
+  const squareHouse = faker.number.int({ min: 6, max: 25 });
+  const squareGarden = faker.number.int({ min: 3, max: 10 });
   const address = `${faker.helpers.arrayElement(cityes)}, ул. ${faker.location.street()}, ${faker.number.int(100)}`;
   const addressHouse = `пгт. ${faker.helpers.arrayElement(pgts)}, ул. ${faker.location.street()}, ${faker.number.int(100)}`;
   const pricePerMeter = faker.number.int({ min: 700, max: 1000 });
@@ -180,21 +181,24 @@ for (let i = 0; i < DATA_COUNT; i++) {
   }
 
   let nameHouse = '';
+  let square = 0;
 
   switch (typeHouse) {
     case 'RESIDENTIAL':
-      totalSquare = kitchenSquare + bedroomSquare + 7;
-      nameHouse = `Дом, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare + 100}`;
+      square = squareHouse;
+      nameHouse = `Дом, ${squareHouse / 100} га, ИЖС, ${totalSquare + 100}`;
       break;
     case 'GARDEN':
-      totalSquare = kitchenSquare + bedroomSquare + 28;
-      nameHouse = `Дача, ${faker.number.int({ min: 3, max: 10 }) / 100} га, ${totalSquare}`;
+      square = squareGarden;
+      nameHouse = `Дача, ${squareGarden / 100} га, ${totalSquare}`;
       break;
     case 'TANHOUSE':
-      nameHouse = `Танхаус, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare}`;
+      square = squareGarden;
+      nameHouse = `Танхаус, ${squareGarden / 100} га, ИЖС, ${totalSquare}`;
       break;
     case 'PARTHOUSE':
-      nameHouse = `Часть дома, ${faker.number.int({ min: 6, max: 20 }) / 100} га, ИЖС, ${totalSquare}`;
+      square = squareGarden;
+      nameHouse = `Часть дома, ${squareGarden / 100} га, ИЖС, ${totalSquare}`;
       break;
 
     default:
