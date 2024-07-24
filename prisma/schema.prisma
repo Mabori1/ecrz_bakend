@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Apartment {
+  id            Int    @id @default(autoincrement())
+  name          String
+  typeBuilding  String
+  type          String
+  floor         String
+  kitchenSquare Int
+  bedroomSquare Int
+  totalSquare   Int
+  address       String
+  pricePerMeter Int
+  priceTotal    Int
+}
+
+model House {
+  id             Int    @id @default(autoincrement())
+  name           String
+  typeBuilding   String
+  type           String
+  kitchenSquare  Int
+  squareBuilding Int
+  totalSquare    Int
+  address        String
+  pricePerMeter  Int
+  priceTotal     Int
+}

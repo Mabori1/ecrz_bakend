@@ -1,0 +1,19 @@
+name: deploy server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh command
+        uses: D3rHase/ssh-command-action@v0.2.2
+        with:
+          host: ${{secrets.SSH_HOST}} # Remote server address / ip - required
+          user: ${{secrets.SSH_USERNAME}} # Remote server user - required
+          private_key: ${{secrets.SSH_PRIVATE_KEY}} # Private ssh key registered on the remote server - required
+          host_fingerprint: ${{secrets.SSH_FINGERPRINT}} # Public ssh key fingerprint, viewable via ssh-keyscan -H $HOST -p $PORT - optional
+          command: source ~/.nvm/nvm.sh; ~/deploy.sh
