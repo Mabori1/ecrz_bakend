@@ -11,7 +11,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.enableCors({
-    origin: 'http://localhost:3000', // Разрешаем запросы с этого источника
+    origin: ['http://localhost:3000', 'https://htmlonelove.github.io'], // Разрешаем запросы с этого источника
     methods: 'GET,PUT,PATCH,POST,DELETE',
     credentials: true, // если нужен доступ с использованием cookies
   });
